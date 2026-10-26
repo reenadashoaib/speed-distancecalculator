@@ -1,0 +1,11 @@
+// Cloudflare deploy config. Publishes the static site in ./site.
+// Deploy with: npx wrangler deploy
+{
+  "name": "speed-distance-calculator",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./site",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}

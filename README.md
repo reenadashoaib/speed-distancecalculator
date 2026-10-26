@@ -4,16 +4,19 @@ A static speed, distance and time calculator website, ready for Cloudflare Pages
 
 The website lives in [`site/`](site/). Everything else in the repo (such as `.claude/`) is tooling and is not published.
 
-## Deploy on Cloudflare Pages
+## Deploy on Cloudflare
 
-1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**, and pick this repository.
-2. Build settings:
-   - Framework preset: **None**
-   - Build command: *(leave empty)*
-   - Build output directory: **`site`**
-3. Deploy, then add your domain under **Custom domains**.
+The site is live at https://speed-distance-calculator.reenadashoaib.workers.dev, served by Cloudflare Workers static assets.
 
-Or upload by hand with Wrangler: `npx wrangler pages deploy site`.
+To publish changes, run from the repo root:
+
+```
+npx wrangler deploy
+```
+
+`wrangler.jsonc` tells Cloudflare to publish only the `site/` folder. You need to be logged in (`npx wrangler login`) or have `CLOUDFLARE_API_TOKEN` set.
+
+To use your own domain: Cloudflare dashboard → **Workers & Pages** → **speed-distance-calculator** → **Settings** → **Domains & Routes** → **Add** → **Custom domain**. The domain has to be on your Cloudflare account.
 
 ## After you have a domain
 
