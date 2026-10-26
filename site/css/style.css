@@ -8,7 +8,7 @@
   --muted: #586460;
   --rule: #d3dad4;
   --ad-bg: #e6eae5;
-  --focus: #1a73e8;
+  --focus: #232729;
 
   --font: "Overpass", "Highway Gothic", "Helvetica Neue", Arial, sans-serif;
   --step--1: 0.875rem;
@@ -86,13 +86,13 @@ p { margin: 0 0 1em; }
 /* ---------- Ad slots ---------- */
 
 .ad { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.ad-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.02em; }
+.ad-label { font-size: 0.75rem; color: var(--muted); }
 .ad-slot { width: 100%; overflow: hidden; }
 .ad-slot--empty {
   background: var(--ad-bg);
   border: 1px dashed #b3bdb5;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  color: #7a857f; text-align: center; gap: 2px;
+  color: #56615b; text-align: center; gap: 2px;
 }
 .ad-ph-size { font-weight: 700; font-size: var(--step-0); }
 .ad-ph-name { font-size: 0.75rem; text-transform: capitalize; }
@@ -147,7 +147,7 @@ main { min-width: 0; }
   border-radius: var(--radius-sign);
   padding: 6px;
   color: var(--white);
-  box-shadow: 0 2px 0 var(--sign-deep), 0 14px 30px -18px rgba(10, 81, 53, 0.7);
+  box-shadow: 0 4px 0 var(--sign-deep);
   margin-top: 24px;
 }
 .sign-inner {
@@ -162,10 +162,22 @@ main { min-width: 0; }
   .sign-inner { grid-template-columns: 1fr; padding: 18px; gap: 20px; }
 }
 
+/* Inside the green sign, focus uses lane yellow so it stays visible. */
+.sign :focus-visible { outline-color: var(--lane); }
+
 /* Formula triangle */
 .triangle-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
 #triangle { width: 100%; max-width: 220px; }
-@media (max-width: 720px) { #triangle { max-width: 170px; } }
+
+/* On phones the triangle sits beside its formula so the form starts sooner. */
+@media (max-width: 720px) {
+  .triangle-wrap {
+    display: grid; grid-template-columns: 112px 1fr; align-items: center;
+    column-gap: 16px; row-gap: 4px; justify-items: start;
+  }
+  #triangle { grid-row: span 2; max-width: 112px; }
+  .triangle-wrap .tri-formula, .triangle-wrap .tri-hint { text-align: left; }
+}
 #triangle .tri-line { fill: none; stroke: var(--white); stroke-width: 4; stroke-linejoin: round; }
 #triangle [data-pick] { cursor: pointer; }
 #triangle .tri-dot { fill: transparent; transition: fill 0.2s; }
@@ -227,10 +239,17 @@ main { min-width: 0; }
   border-radius: var(--radius-field); padding: 10px 26px; min-height: 50px; cursor: pointer; border: 0;
 }
 .btn-go { background: var(--lane); color: var(--asphalt); }
+.btn-go { transition: background-color 0.15s; }
 .btn-go:hover { background: #ffd84a; }
 .btn-plain { background: transparent; color: var(--white); text-decoration: underline; text-underline-offset: 3px; font-size: var(--step-0); font-weight: 600; padding-inline: 8px; }
 
-.calc-error { margin: 14px 0 0; background: var(--asphalt); color: var(--lane); padding: 10px 14px; border-radius: var(--radius-field); font-weight: 600; }
+.field-error {
+  margin: 8px 0 0; color: var(--asphalt); background: var(--lane);
+  padding: 6px 10px; border-radius: 4px; font-weight: 700; font-size: var(--step--1);
+  display: inline-block;
+}
+.field-error[hidden] { display: none;
+}
 
 .result {
   grid-column: 1 / -1;
@@ -250,22 +269,31 @@ main { min-width: 0; }
 .section--wide { max-width: none; }
 .section > p, .section li { max-width: 70ch; }
 
-.formulas { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
-.formula {
-  background: var(--white); border-left: 6px solid var(--sign); border-radius: 0 8px 8px 0; padding: 16px 18px;
+/* Formulas are set as lettering, not boxed: the type is the design. */
+.formulas { margin: 28px 0; padding: 0; display: grid; gap: 4px 32px; grid-template-columns: auto 1fr; align-items: baseline; }
+.formulas dt {
+  font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; color: var(--sign);
+  letter-spacing: 0.02em; white-space: nowrap; line-height: 1.2;
 }
-.formula b { display: block; font-size: var(--step-2); font-weight: 800; color: var(--sign); }
-.formula span { color: var(--muted); font-size: var(--step--1); }
+.formulas dd { margin: 0; color: var(--muted); }
+@media (max-width: 520px) {
+  .formulas { grid-template-columns: 1fr; }
+  .formulas dd { margin-bottom: 14px; }
+}
 
-.examples { display: grid; gap: 16px; margin-top: 24px; }
-.example { background: var(--white); border-radius: 10px; padding: 20px; border: 1px solid var(--rule); }
-.example h3 { margin-bottom: 6px; }
-.example p { margin-bottom: 10px; }
-.example .working { font-variant-numeric: tabular-nums; background: var(--paper); border-radius: 6px; padding: 10px 14px; margin-bottom: 12px; }
+/* Worked examples read as one continuous route, split by lane dashes. */
+.examples { list-style: none; margin: 24px 0 0; padding: 0; }
+.example { padding: 22px 0; border-top: 3px dashed var(--rule); }
+.example:last-child { border-bottom: 3px dashed var(--rule); }
+.example h4 { font-size: var(--step-1); margin: 0 0 6px; }
+.example p { margin-bottom: 8px; }
+.example .working { font-variant-numeric: tabular-nums; font-size: var(--step-1); color: var(--asphalt); margin-bottom: 12px; }
+.example .working b { color: var(--sign); }
 .btn-try {
   font: inherit; font-weight: 700; color: var(--sign); background: transparent;
   border: 2px solid var(--sign); border-radius: var(--radius-field); padding: 6px 14px; cursor: pointer; min-height: 44px;
 }
+.btn-try { transition: background-color 0.15s, color 0.15s; }
 .btn-try:hover { background: var(--sign); color: var(--white); }
 
 .table-scroll { overflow-x: auto; margin: 20px 0; border-radius: 10px; border: 1px solid var(--rule); background: var(--white); }
@@ -277,10 +305,20 @@ thead th { background: var(--sign); color: var(--white); font-weight: 700; }
 tbody tr:nth-child(even) { background: #f6f8f5; }
 tbody th { font-weight: 600; }
 
-.faq details { background: var(--white); border-radius: 8px; border: 1px solid var(--rule); margin-bottom: 10px; }
-.faq summary { cursor: pointer; padding: 14px 18px; font-weight: 700; font-size: var(--step-0); list-style-position: outside; }
-.faq details[open] summary { border-bottom: 1px solid var(--rule); }
-.faq details > div { padding: 14px 18px 4px; }
+.faq details { border-top: 3px dashed var(--rule); }
+.faq details:last-of-type { border-bottom: 3px dashed var(--rule); }
+.faq summary {
+  cursor: pointer; padding: 16px 40px 16px 0; font-weight: 700; font-size: var(--step-1);
+  list-style: none; position: relative; min-height: 44px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+  font-size: 1.6rem; font-weight: 400; color: var(--sign); line-height: 1;
+}
+.faq details[open] summary::after { content: "−"; }
+.faq summary:hover { color: var(--sign); }
+.faq details > div { padding: 0 0 8px; }
 
 /* ---------- Simple pages ---------- */
 

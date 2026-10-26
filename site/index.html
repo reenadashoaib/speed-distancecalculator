@@ -100,7 +100,7 @@
                 <div class="row" data-row="distance">
                   <label for="distance">Distance</label>
                   <div class="row-fields">
-                    <input id="distance" name="distance" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 42">
+                    <input id="distance" name="distance" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 42" aria-describedby="distance-error">
                     <select name="distance-unit" aria-label="Distance unit">
                       <option value="km">km</option>
                       <option value="mi">miles</option>
@@ -111,22 +111,24 @@
                     </select>
                   </div>
                   <p class="solving-note">We'll work this out. Choose the unit you want the answer in.</p>
+                  <p class="field-error" id="distance-error" hidden></p>
                 </div>
 
                 <div class="row" data-row="time">
                   <span class="row-label" id="time-label">Time</span>
-                  <div class="time-fields" role="group" aria-labelledby="time-label">
+                  <div class="time-fields" role="group" aria-labelledby="time-label" aria-describedby="time-error">
                     <label>Hours<input name="hours" type="number" inputmode="numeric" min="0" step="any" placeholder="0"></label>
                     <label>Minutes<input name="minutes" type="number" inputmode="numeric" min="0" step="any" placeholder="0"></label>
                     <label>Seconds<input name="seconds" type="number" inputmode="numeric" min="0" step="any" placeholder="0"></label>
                   </div>
                   <p class="solving-note">We'll work this out.</p>
+                  <p class="field-error" id="time-error" hidden></p>
                 </div>
 
                 <div class="row" data-row="speed">
                   <label for="speed">Speed</label>
                   <div class="row-fields">
-                    <input id="speed" name="speed" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 60">
+                    <input id="speed" name="speed" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 60" aria-describedby="speed-error">
                     <select name="speed-unit" aria-label="Speed unit">
                       <option value="kmh">km/h</option>
                       <option value="mph">mph</option>
@@ -136,13 +138,13 @@
                     </select>
                   </div>
                   <p class="solving-note">We'll work this out. Choose the unit you want the answer in.</p>
+                  <p class="field-error" id="speed-error" hidden></p>
                 </div>
 
                 <div class="calc-actions">
                   <button class="btn btn-go" type="submit">Calculate</button>
                   <button class="btn btn-plain" type="reset">Clear</button>
                 </div>
-                <p class="calc-error" id="calc-error" role="alert" hidden></p>
               </div>
 
               <div class="result" id="result" aria-live="polite" hidden>
@@ -163,34 +165,34 @@
         <section class="section" id="formula">
           <h2>The speed, distance and time formula</h2>
           <p>Speed tells you how much distance is covered in a unit of time. Once you know any two of the three, the third follows from one of these:</p>
-          <div class="formulas">
-            <div class="formula"><b>S = D ÷ T</b><span>Speed is distance divided by time</span></div>
-            <div class="formula"><b>D = S × T</b><span>Distance is speed multiplied by time</span></div>
-            <div class="formula"><b>T = D ÷ S</b><span>Time is distance divided by speed</span></div>
-          </div>
+          <dl class="formulas">
+            <dt>S = D ÷ T</dt><dd>Speed is distance divided by time</dd>
+            <dt>D = S × T</dt><dd>Distance is speed multiplied by time</dd>
+            <dt>T = D ÷ S</dt><dd>Time is distance divided by speed</dd>
+          </dl>
           <p>The units have to agree. If speed is in kilometres per hour, distance must be in kilometres and time in hours. The calculator does those conversions for you, which is where most hand calculations go wrong: 1 hour 30 minutes is 1.5 hours, not 1.3.</p>
 
           <h3>Worked examples</h3>
-          <div class="examples">
-            <article class="example">
-              <h3>How fast was the drive?</h3>
+          <ul class="examples">
+            <li class="example">
+              <h4>How fast was the drive?</h4>
               <p>You drove 180 km and it took 2 hours 15 minutes.</p>
               <p class="working">2 h 15 min = 2.25 h &nbsp;→&nbsp; 180 ÷ 2.25 = <b>80 km/h</b></p>
               <button class="btn-try" type="button" data-example='{"solve":"speed","distance":180,"distanceUnit":"km","time":[2,15,0],"speedUnit":"kmh"}'>Try it in the calculator</button>
-            </article>
-            <article class="example">
-              <h3>How far will I get?</h3>
+            </li>
+            <li class="example">
+              <h4>How far will I get?</h4>
               <p>You cycle at 15 mph for 40 minutes.</p>
               <p class="working">40 min = 0.667 h &nbsp;→&nbsp; 15 × 0.667 = <b>10 miles</b></p>
               <button class="btn-try" type="button" data-example='{"solve":"distance","speed":15,"speedUnit":"mph","time":[0,40,0],"distanceUnit":"mi"}'>Try it in the calculator</button>
-            </article>
-            <article class="example">
-              <h3>How long will the marathon take?</h3>
+            </li>
+            <li class="example">
+              <h4>How long will the marathon take?</h4>
               <p>You can hold 10.5 km/h for 42.195 km.</p>
               <p class="working">42.195 ÷ 10.5 = 4.019 h &nbsp;→&nbsp; <b>4 h 1 min 7 s</b></p>
               <button class="btn-try" type="button" data-example='{"solve":"time","distance":42.195,"distanceUnit":"km","speed":10.5,"speedUnit":"kmh"}'>Try it in the calculator</button>
-            </article>
-          </div>
+            </li>
+          </ul>
         </section>
 
         <div class="ad ad--inline section">

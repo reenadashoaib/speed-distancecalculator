@@ -82,13 +82,18 @@
     if (!box) return;
     if (!opts.enabled || storageGet("adCornerClosed")) { box.remove(); return; }
 
+    var root = document.documentElement;
+
     setTimeout(function () {
       box.hidden = false;
       fill(box.querySelector("[data-ad]"));
+      // Keep keyboard focus from scrolling underneath the box.
+      root.style.scrollPaddingBottom = box.offsetHeight + 24 + "px";
     }, (opts.showAfterSeconds || 0) * 1000);
 
     box.querySelector(".ad-corner-close").addEventListener("click", function () {
       box.remove();
+      root.style.scrollPaddingBottom = "";
       storageSet("adCornerClosed", "1");
     });
   }

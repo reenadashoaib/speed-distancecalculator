@@ -36,7 +36,6 @@
     speedUnit: form.elements["speed-unit"]
   };
   var resultBox = document.getElementById("result");
-  var errorBox = document.getElementById("calc-error");
   var triangle = document.getElementById("triangle");
   var solveFor = "speed";
   var hasResult = false;
@@ -98,13 +97,17 @@
     hasResult = false;
   }
 
-  function showError(message, input) {
-    errorBox.textContent = message;
-    errorBox.hidden = false;
-    if (input) { input.setAttribute("aria-invalid", "true"); input.focus(); }
+  // Errors appear under the field they belong to and are linked with aria-describedby.
+  function showError(row, message, input) {
+    var box = document.getElementById(row + "-error");
+    box.textContent = message;
+    box.hidden = false;
+    input.setAttribute("aria-invalid", "true");
+    input.focus();
+    return false;
   }
   function clearError() {
-    errorBox.hidden = true;
+    form.querySelectorAll(".field-error").forEach(function (el) { el.hidden = true; el.textContent = ""; });
     form.querySelectorAll('[aria-invalid="true"]').forEach(function (el) { el.removeAttribute("aria-invalid"); });
   }
 
@@ -114,9 +117,9 @@
     var seconds = readTime();
     var ms = num(f.speed) * SPEED[f.speedUnit.value].ms;
 
-    if (solveFor !== "distance" && !(meters > 0)) return showError("Enter a distance greater than zero.", f.distance);
-    if (solveFor !== "time" && !(seconds > 0)) return showError("Enter a time greater than zero. Hours, minutes or seconds is enough.", f.hours);
-    if (solveFor !== "speed" && !(ms > 0)) return showError("Enter a speed greater than zero.", f.speed);
+    if (solveFor !== "distance" && !(meters > 0)) return showError("distance", "Enter a distance greater than zero.", f.distance);
+    if (solveFor !== "time" && !(seconds > 0)) return showError("time", "Enter a time greater than zero. Hours, minutes or seconds is enough.", f.hours);
+    if (solveFor !== "speed" && !(ms > 0)) return showError("speed", "Enter a speed greater than zero.", f.speed);
 
     if (solveFor === "speed") ms = meters / seconds;
     if (solveFor === "distance") meters = ms * seconds;
