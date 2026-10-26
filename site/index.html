@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Speed Distance Time Calculator – km/h, mph, pace</title>
+  <meta name="description" content="Free speed, distance and time calculator. Work out any one from the other two in km/h, mph, m/s or knots, with running pace, worked examples and conversion tables.">
+  <link rel="canonical" href="https://example.com/">
+  <meta property="og:title" content="Speed Distance Time Calculator">
+  <meta property="og:description" content="Work out speed, distance or time from the other two, in any unit.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/">
+  <meta name="theme-color" content="#0f6b45">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Speed Distance Time Calculator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#calculator">Skip to calculator</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 2 18 17H2Z" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/></svg>
+        </span>
+        Speed Distance Calculator
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="#calculator">Calculator</a></li>
+          <li><a href="#formula">Formula</a></li>
+          <li><a href="#speeds">Common speeds</a></li>
+          <li><a href="#pace">Pace chart</a></li>
+          <li><a href="#faq">Questions</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="ad ad--top">
+      <span class="ad-label">Advertisement</span>
+      <div class="ad-slot ad-slot--leaderboard" data-ad="top-banner"></div>
+    </div>
+
+    <div class="layout">
+      <aside class="rail rail--left" aria-label="Advertisement">
+        <div class="ad">
+          <span class="ad-label">Advertisement</span>
+          <div class="ad-slot ad-slot--rail-narrow" data-ad="rail-left"></div>
+        </div>
+      </aside>
+
+      <main id="main">
+        <section class="hero" id="calculator">
+          <h1>Work out speed, distance or time</h1>
+          <p class="lede">Pick the one you want to find, enter the other two, and get the answer in every common unit.</p>
+
+          <div class="sign">
+            <form class="sign-inner calc" id="calc" novalidate>
+              <div class="triangle-wrap">
+                <svg id="triangle" viewBox="0 0 220 196" data-solve="speed" role="img" aria-label="Formula triangle: distance on top, speed and time below">
+                  <path class="tri-line" d="M110 8 212 188H8Z"/>
+                  <path class="tri-line" d="M59 98H161M110 98V188"/>
+                  <g data-pick="distance"><circle class="tri-dot" cx="110" cy="66" r="24"/><text x="110" y="68">D</text></g>
+                  <g data-pick="speed"><circle class="tri-dot" cx="70" cy="148" r="24"/><text x="70" y="150">S</text></g>
+                  <g data-pick="time"><circle class="tri-dot" cx="150" cy="148" r="24"/><text x="150" y="150">T</text></g>
+                </svg>
+                <p class="tri-formula" aria-live="polite">
+                  <span class="f-speed">S = D ÷ T</span>
+                  <span class="f-distance">D = S × T</span>
+                  <span class="f-time">T = D ÷ S</span>
+                </p>
+                <p class="tri-hint">Cover the letter you want to find. What's left is the formula.</p>
+              </div>
+
+              <div>
+                <fieldset>
+                  <legend>What do you want to find?</legend>
+                  <div class="solve-pick">
+                    <label><input type="radio" name="solve" value="speed" checked><span>Speed</span></label>
+                    <label><input type="radio" name="solve" value="distance"><span>Distance</span></label>
+                    <label><input type="radio" name="solve" value="time"><span>Time</span></label>
+                  </div>
+                </fieldset>
+
+                <div class="row" data-row="distance">
+                  <label for="distance">Distance</label>
+                  <div class="row-fields">
+                    <input id="distance" name="distance" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 42">
+                    <select name="distance-unit" aria-label="Distance unit">
+                      <option value="km">km</option>
+                      <option value="mi">miles</option>
+                      <option value="m">metres</option>
+                      <option value="ft">feet</option>
+                      <option value="yd">yards</option>
+                      <option value="nmi">nautical miles</option>
+                    </select>
+                  </div>
+                  <p class="solving-note">We'll work this out. Choose the unit you want the answer in.</p>
+                </div>
+
+                <div class="row" data-row="time">
+                  <span class="row-label" id="time-label">Time</span>
+                  <div class="time-fields" role="group" aria-labelledby="time-label">
+                    <label>Hours<input name="hours" type="number" inputmode="numeric" min="0" step="any" placeholder="0"></label>
+                    <label>Minutes<input name="minutes" type="number" inputmode="numeric" min="0" step="any" placeholder="0"></label>
+                    <label>Seconds<input name="seconds" type="number" inputmode="numeric" min="0" step="any" placeholder="0"></label>
+                  </div>
+                  <p class="solving-note">We'll work this out.</p>
+                </div>
+
+                <div class="row" data-row="speed">
+                  <label for="speed">Speed</label>
+                  <div class="row-fields">
+                    <input id="speed" name="speed" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 60">
+                    <select name="speed-unit" aria-label="Speed unit">
+                      <option value="kmh">km/h</option>
+                      <option value="mph">mph</option>
+                      <option value="ms">m/s</option>
+                      <option value="kn">knots</option>
+                      <option value="fts">ft/s</option>
+                    </select>
+                  </div>
+                  <p class="solving-note">We'll work this out. Choose the unit you want the answer in.</p>
+                </div>
+
+                <div class="calc-actions">
+                  <button class="btn btn-go" type="submit">Calculate</button>
+                  <button class="btn btn-plain" type="reset">Clear</button>
+                </div>
+                <p class="calc-error" id="calc-error" role="alert" hidden></p>
+              </div>
+
+              <div class="result" id="result" aria-live="polite" hidden>
+                <p class="result-formula"></p>
+                <p class="result-main"><span class="result-value"></span><span class="result-unit"></span></p>
+                <ul class="result-list"></ul>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <div class="ad-tiles">
+          <div class="ad"><span class="ad-label">Advertisement</span><div class="ad-slot ad-slot--tile" data-ad="tile-1"></div></div>
+          <div class="ad"><span class="ad-label">Advertisement</span><div class="ad-slot ad-slot--tile" data-ad="tile-2"></div></div>
+          <div class="ad"><span class="ad-label">Advertisement</span><div class="ad-slot ad-slot--tile" data-ad="tile-3"></div></div>
+        </div>
+
+        <section class="section" id="formula">
+          <h2>The speed, distance and time formula</h2>
+          <p>Speed tells you how much distance is covered in a unit of time. Once you know any two of the three, the third follows from one of these:</p>
+          <div class="formulas">
+            <div class="formula"><b>S = D ÷ T</b><span>Speed is distance divided by time</span></div>
+            <div class="formula"><b>D = S × T</b><span>Distance is speed multiplied by time</span></div>
+            <div class="formula"><b>T = D ÷ S</b><span>Time is distance divided by speed</span></div>
+          </div>
+          <p>The units have to agree. If speed is in kilometres per hour, distance must be in kilometres and time in hours. The calculator does those conversions for you, which is where most hand calculations go wrong: 1 hour 30 minutes is 1.5 hours, not 1.3.</p>
+
+          <h3>Worked examples</h3>
+          <div class="examples">
+            <article class="example">
+              <h3>How fast was the drive?</h3>
+              <p>You drove 180 km and it took 2 hours 15 minutes.</p>
+              <p class="working">2 h 15 min = 2.25 h &nbsp;→&nbsp; 180 ÷ 2.25 = <b>80 km/h</b></p>
+              <button class="btn-try" type="button" data-example='{"solve":"speed","distance":180,"distanceUnit":"km","time":[2,15,0],"speedUnit":"kmh"}'>Try it in the calculator</button>
+            </article>
+            <article class="example">
+              <h3>How far will I get?</h3>
+              <p>You cycle at 15 mph for 40 minutes.</p>
+              <p class="working">40 min = 0.667 h &nbsp;→&nbsp; 15 × 0.667 = <b>10 miles</b></p>
+              <button class="btn-try" type="button" data-example='{"solve":"distance","speed":15,"speedUnit":"mph","time":[0,40,0],"distanceUnit":"mi"}'>Try it in the calculator</button>
+            </article>
+            <article class="example">
+              <h3>How long will the marathon take?</h3>
+              <p>You can hold 10.5 km/h for 42.195 km.</p>
+              <p class="working">42.195 ÷ 10.5 = 4.019 h &nbsp;→&nbsp; <b>4 h 1 min 7 s</b></p>
+              <button class="btn-try" type="button" data-example='{"solve":"time","distance":42.195,"distanceUnit":"km","speed":10.5,"speedUnit":"kmh"}'>Try it in the calculator</button>
+            </article>
+          </div>
+        </section>
+
+        <div class="ad ad--inline section">
+          <span class="ad-label">Advertisement</span>
+          <div class="ad-slot ad-slot--fluid" data-ad="in-article"></div>
+        </div>
+
+        <section class="section" id="speeds">
+          <h2>Common speeds compared</h2>
+          <p>Typical speeds for everyday travel, so you can sanity-check a result.</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Figures are typical values, rounded.</caption>
+              <thead><tr><th scope="col">What</th><th scope="col">km/h</th><th scope="col">mph</th><th scope="col">m/s</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Walking</th><td>5</td><td>3.1</td><td>1.4</td></tr>
+                <tr><th scope="row">Easy jog</th><td>10</td><td>6.2</td><td>2.8</td></tr>
+                <tr><th scope="row">Commuter cycling</th><td>20</td><td>12.4</td><td>5.6</td></tr>
+                <tr><th scope="row">Usain Bolt at top speed</th><td>44.7</td><td>27.8</td><td>12.4</td></tr>
+                <tr><th scope="row">City driving</th><td>50</td><td>31.1</td><td>13.9</td></tr>
+                <tr><th scope="row">Motorway driving</th><td>110</td><td>68.4</td><td>30.6</td></tr>
+                <tr><th scope="row">High-speed train</th><td>300</td><td>186.4</td><td>83.3</td></tr>
+                <tr><th scope="row">Airliner cruising</th><td>900</td><td>559.2</td><td>250</td></tr>
+                <tr><th scope="row">Sound at sea level</th><td>1,235</td><td>767</td><td>343</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Unit conversions</h3>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th scope="col">1 of this</th><th scope="col">km/h</th><th scope="col">mph</th><th scope="col">m/s</th><th scope="col">knots</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">km/h</th><td>1</td><td>0.6214</td><td>0.2778</td><td>0.5400</td></tr>
+                <tr><th scope="row">mph</th><td>1.6093</td><td>1</td><td>0.4470</td><td>0.8690</td></tr>
+                <tr><th scope="row">m/s</th><td>3.6</td><td>2.2369</td><td>1</td><td>1.9438</td></tr>
+                <tr><th scope="row">knot</th><td>1.852</td><td>1.1508</td><td>0.5144</td><td>1</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <div class="ad-tiles">
+          <div class="ad"><span class="ad-label">Advertisement</span><div class="ad-slot ad-slot--tile" data-ad="tile-4"></div></div>
+          <div class="ad"><span class="ad-label">Advertisement</span><div class="ad-slot ad-slot--tile" data-ad="tile-5"></div></div>
+          <div class="ad"><span class="ad-label">Advertisement</span><div class="ad-slot ad-slot--tile" data-ad="tile-6"></div></div>
+        </div>
+
+        <section class="section section--wide" id="pace">
+          <h2>Running pace chart</h2>
+          <p>Pace is speed turned upside down: time per kilometre or mile instead of distance per hour. Find your pace to see your speed and finish times for popular race distances.</p>
+          <div class="table-scroll">
+            <table>
+              <caption>Finish times assume an even pace the whole way.</caption>
+              <thead>
+                <tr><th scope="col">Per km</th><th scope="col">Per mile</th><th scope="col">km/h</th><th scope="col">mph</th><th scope="col">5K</th><th scope="col">10K</th><th scope="col">Half marathon</th><th scope="col">Marathon</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>3:00</td><td>4:50</td><td>20.0</td><td>12.4</td><td>15:00</td><td>30:00</td><td>1:03:18</td><td>2:06:35</td></tr>
+                <tr><td>3:30</td><td>5:38</td><td>17.1</td><td>10.7</td><td>17:30</td><td>35:00</td><td>1:13:50</td><td>2:27:41</td></tr>
+                <tr><td>4:00</td><td>6:26</td><td>15.0</td><td>9.3</td><td>20:00</td><td>40:00</td><td>1:24:23</td><td>2:48:47</td></tr>
+                <tr><td>4:30</td><td>7:15</td><td>13.3</td><td>8.3</td><td>22:30</td><td>45:00</td><td>1:34:56</td><td>3:09:53</td></tr>
+                <tr><td>5:00</td><td>8:03</td><td>12.0</td><td>7.5</td><td>25:00</td><td>50:00</td><td>1:45:29</td><td>3:30:59</td></tr>
+                <tr><td>5:30</td><td>8:51</td><td>10.9</td><td>6.8</td><td>27:30</td><td>55:00</td><td>1:56:02</td><td>3:52:04</td></tr>
+                <tr><td>6:00</td><td>9:39</td><td>10.0</td><td>6.2</td><td>30:00</td><td>1:00:00</td><td>2:06:35</td><td>4:13:10</td></tr>
+                <tr><td>6:30</td><td>10:28</td><td>9.2</td><td>5.7</td><td>32:30</td><td>1:05:00</td><td>2:17:08</td><td>4:34:16</td></tr>
+                <tr><td>7:00</td><td>11:16</td><td>8.6</td><td>5.3</td><td>35:00</td><td>1:10:00</td><td>2:27:41</td><td>4:55:22</td></tr>
+                <tr><td>8:00</td><td>12:52</td><td>7.5</td><td>4.7</td><td>40:00</td><td>1:20:00</td><td>2:48:47</td><td>5:37:34</td></tr>
+                <tr><td>9:00</td><td>14:29</td><td>6.7</td><td>4.1</td><td>45:00</td><td>1:30:00</td><td>3:09:53</td><td>6:19:45</td></tr>
+                <tr><td>10:00</td><td>16:06</td><td>6.0</td><td>3.7</td><td>50:00</td><td>1:40:00</td><td>3:30:59</td><td>7:01:57</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section faq" id="faq">
+          <h2>Questions</h2>
+          <details>
+            <summary>How do I calculate speed?</summary>
+            <div><p>Divide the distance by the time taken. 100 km in 2 hours is 100 ÷ 2 = 50 km/h. Convert minutes to hours first by dividing by 60.</p></div>
+          </details>
+          <details>
+            <summary>How do I convert km/h to mph?</summary>
+            <div><p>Multiply by 0.6214. To go from mph to km/h, multiply by 1.6093. 100 km/h is about 62 mph.</p></div>
+          </details>
+          <details>
+            <summary>How do I turn minutes into hours for the formula?</summary>
+            <div><p>Divide by 60. 45 minutes is 0.75 hours and 1 hour 20 minutes is 1.333 hours. You can type hours, minutes and seconds separately in the calculator and it will do this for you.</p></div>
+          </details>
+          <details>
+            <summary>What is the difference between speed and velocity?</summary>
+            <div><p>Speed is how fast something moves. Velocity is speed in a particular direction. For journeys, race times and fuel planning, speed is what you need.</p></div>
+          </details>
+          <details>
+            <summary>Is the answer my average speed?</summary>
+            <div><p>Yes. The result is the average over the whole distance, including any slow sections or stops that are part of the time you entered.</p></div>
+          </details>
+          <details>
+            <summary>What is a knot?</summary>
+            <div><p>One nautical mile per hour, used at sea and in aviation. A nautical mile is 1,852 metres, so 1 knot is 1.852 km/h or about 1.15 mph.</p></div>
+          </details>
+        </section>
+      </main>
+
+      <aside class="rail rail--right" aria-label="Advertisement">
+        <div class="ad">
+          <span class="ad-label">Advertisement</span>
+          <div class="ad-slot ad-slot--rail-wide" data-ad="rail-right"></div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="ad ad--footer">
+      <span class="ad-label">Advertisement</span>
+      <div class="ad-slot ad-slot--leaderboard" data-ad="footer-banner"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© <span id="year">2026</span> Speed Distance Calculator. Results are estimates for planning only.</p>
+      <ul>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="/privacy.html">Privacy policy</a></li>
+        <li><a href="/terms.html">Terms</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="ad-corner" id="ad-corner" hidden>
+    <div class="ad-corner-bar">
+      <span class="ad-label">Advertisement</span>
+      <button class="ad-corner-close" type="button" aria-label="Close advertisement">×</button>
+    </div>
+    <div class="ad-slot ad-slot--video" data-ad="video-corner"></div>
+  </div>
+
+  <div class="ad-overlay" id="ad-overlay" role="dialog" aria-modal="true" aria-label="Advertisement" hidden>
+    <div class="ad-overlay-panel">
+      <div class="ad-overlay-bar">
+        <span class="ad-label">Advertisement</span>
+        <button class="ad-overlay-close" type="button"><span class="ad-overlay-count">Close</span></button>
+      </div>
+      <div class="ad-slot ad-slot--overlay" data-ad="interstitial"></div>
+    </div>
+  </div>
+
+  <script src="/js/ad-config.js"></script>
+  <script src="/js/ads.js"></script>
+  <script src="/js/calculator.js"></script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
